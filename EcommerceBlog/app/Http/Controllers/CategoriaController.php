@@ -11,7 +11,7 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        //
+        return view('ecommerce.productos.index');
     }
 
     /**
