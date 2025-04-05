@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Controllers;
+use App\Models\Articulo;
 
 class ArticuloController extends Controller
 {
@@ -10,7 +12,8 @@ class ArticuloController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
+    {   
+        $articulo =Articulo::all();
         return view('ecommerce.productos.index');
     }
 
