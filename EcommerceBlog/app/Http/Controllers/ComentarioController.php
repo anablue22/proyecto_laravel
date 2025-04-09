@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Controllers;
 use Illuminate\Http\Request;
+use App\Models\Comentario;
 
 class ComentarioController extends Controller
 {
@@ -11,7 +13,8 @@ class ComentarioController extends Controller
      */
     public function index()
     {
-        return view('ecommerce.productos.index');
+        $comentario = Comentario::all();
+        return view('ecommerce.comentarios.index', compact('comentario'));
     }
 
     /**
@@ -19,7 +22,7 @@ class ComentarioController extends Controller
      */
     public function create()
     {
-        //
+        return view('ecommerce.comentarios.create');
     }
 
     /**
@@ -27,15 +30,21 @@ class ComentarioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'contenido' => 'required|unique:comentarios, contenido'
+        ]);
+
+        Comentario::create($request->all());
+        return redirect()->route('comentarios.index')->with('success', 'comentario creado correctamente');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $id)//detalles de cada comentario
     {
-        //
+        $comentario = Comentario::findOrFail($id);
+        return view('ecommerce.comentarios.show', compact('comentario'));
     }
 
     /**
@@ -43,7 +52,8 @@ class ComentarioController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $comentario = Comentario::findOrFail($id);
+        return view('ecommerce.comentarios.edit', compact('comentario'));
     }
 
     /**
@@ -51,7 +61,14 @@ class ComentarioController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'contenido' => 'required|unique:comentarios,contenido' . $id
+        ]);
+
+        $comentario = Comentario::findOrFail($id);
+        $comentario->update($request->all());
+
+        return redirect()->eoute('comentario.index')->with('success', 'comentario actualizao correctamente');
     }
 
     /**
@@ -59,6 +76,8 @@ class ComentarioController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $comentario = Comentario::findOrfail($id);
+        $comentario->delete();
+        return redirect()->route('comentarios.index')->with('succes', 'comenatrio eliminado correctamente');
     }
 }

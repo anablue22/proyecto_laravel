@@ -35,13 +35,13 @@ class ProductoController extends Controller
     public function show($id)
     {
         $producto = Producto::findOrFail($id);
-        return view('ecommerce.productos.show', compact('producto'));
+        return view('ecommerce.productos.show', compact('productos'));
     }
 
     public function edit($id)
     {
         $producto = Producto::findOrFail($id);
-        return view('ecommerce.productos.edit', compact('producto'));
+        return view('ecommerce.productos.edit', compact('productos'));
     }
 
     public function update(Request $request, $id)
@@ -57,13 +57,13 @@ class ProductoController extends Controller
         $producto = Producto::findOrFail($id);
         $producto->update($request->all());
 
-        return redirect()->route('productos.index')->with('Con éxito', 'Producto actualizado correctamente.');
+        return redirect()->route('productos.index')->with('success', 'Producto actualizado correctamente.');
     }
 
     public function destroy($id)
     {
         $producto = Producto::findOrFail($id);
         $producto->delete();
-        return redirect()->route('productos.index')->with('Con éxito', 'Producto eliminado correctamente.');
+        return redirect()->route('productos.index')->with('success', 'Producto eliminado correctamente.');
     }
 }

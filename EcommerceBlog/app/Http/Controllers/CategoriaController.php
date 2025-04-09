@@ -35,7 +35,7 @@ class CategoriaController extends Controller
         ]);
 
         Categoria::create($request->all());
-        return redirect()->route('categorias.index')->width('con éxito', 'categoría creada correctamente');
+        return redirect()->route('categorias.index')->width('success', 'categoría creada correctamente');
     }
 
     /**
@@ -61,14 +61,14 @@ class CategoriaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $request->Validate([
-            'nombre' => 'required|Unique:categorias,nombre,' . $id
+        $request->validate([
+            'nombre' => 'required|unique:categorias,nombre,' . $id
         ]);
 
         $categoria = Categoria::findOrFail($id);
         $categoria->update($request->all());
 
-        return redirect()->route('categorias.index')->with('con éxito', 'categoria actualizada correctamente');
+        return redirect()->route('categorias.index')->with('success', 'categoria actualizada correctamente');
     }
 
     /**
@@ -78,6 +78,6 @@ class CategoriaController extends Controller
     {
         $categoria = Categoria::findOrfail($id);
         $categoria->delete();
-        return redirect()->route('categorias.index')->with('con éxito', 'categoría eliminada correctamente');
+        return redirect()->route('categorias.index')->with('succes', 'categoría eliminada correctamente');
     }
 }

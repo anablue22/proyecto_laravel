@@ -14,7 +14,7 @@ class ArticuloController extends Controller
     public function index()
     {   
         $articulo =Articulo::all();
-        return view('ecommerce.productos.index');
+        return view('ecommerce.articulos.index', compact('articulos'));
     }
 
     /**
@@ -22,7 +22,7 @@ class ArticuloController extends Controller
      */
     public function create()
     {
-        //
+        return view('ecommerce.articulos.create');
     }
 
     /**
@@ -30,15 +30,21 @@ class ArticuloController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'titulo' => 'required|unique:articulos,titulo'
+        ]);
+
+        Articulo::create($request->all());
+        return redirect()->route('articulos.index')->with('success', 'artículo creado correctamente');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $id) //detalles de un solo artículo de productos//
     {
-        //
+        $articulo = Articulo::findOrFail($id);
+        return view('ecommerce.articulos.show', compact('articulos'));
     }
 
     /**
@@ -46,7 +52,8 @@ class ArticuloController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $articulo = Articulo::findOrFail($id);
+        return view('ecommerce.articulos.edit', compact('articulos'));
     }
 
     /**
@@ -54,7 +61,14 @@ class ArticuloController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'titulo' => 'required|unique:articulos,titulo,' . $id
+        ]); 
+
+        $articulo = Articulo::findOrFail($id);
+        $articulo->update($request->all());
+
+        return redirect()->route('articulos.index')->with('succes', 'articulo actualizado correctamente');
     }
 
     /**
@@ -62,6 +76,8 @@ class ArticuloController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $articulo = Articulo::findOrfail($id);
+        $articulo->delete();
+        return redirect()->route('articulos.index')->with('success', 'artículo eliminado correctamente');
     }
 }
