@@ -44,7 +44,7 @@ class ArticuloController extends Controller
     public function show(string $id) //detalles de un solo artículo de productos//
     {
         $articulo = Articulo::findOrFail($id);
-        return view('ecommerce.articulos.show', compact('articulo'));
+        return view('ecommerce.articulos.show', compact('articulos'));
     }
 
     /**
@@ -53,7 +53,7 @@ class ArticuloController extends Controller
     public function edit(string $id)
     {
         $articulo = Articulo::findOrFail($id);
-        return view('ecommerce.articulos.edit', compact('articulo'));
+        return view('ecommerce.articulos.edit', compact('articulos'));
     }
 
     /**
@@ -68,7 +68,7 @@ class ArticuloController extends Controller
         $articulo = Articulo::findOrFail($id);
         $articulo->update($request->all());
 
-        return redirect()->route('articulos.index')->with('success', 'articulo actualizado correctamente');
+        return redirect()->route('articulos.index')->with('succes', 'articulo actualizado correctamente');
     }
 
     /**
