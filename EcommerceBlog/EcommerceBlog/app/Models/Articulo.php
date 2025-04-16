@@ -11,16 +11,8 @@ class Articulo extends Model
 
     protected $fillable = ['titulo', 'contenido', 'imagen_destacada', 'autor', 'categoria_id', 'fecha_publicacion', 'fecha_creacion_actualizacion'];
 
-   
-    public function categoria()
-    {
-        return $this->belongsTo(CategoriaBlog::class, 'categoria_id');
-    }
+    public function Articulo(){
 
-    // Relación con comentarios
-    public function comentarios()
-    {
-        return $this->hasMany(Comentario::class);
+        return $this->belongsTo(Categoria::class); 
     }
 }
-

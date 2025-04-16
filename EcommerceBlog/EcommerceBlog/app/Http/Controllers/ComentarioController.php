@@ -78,6 +78,6 @@ class ComentarioController extends Controller
     {
         $comentario = Comentario::findOrfail($id);
         $comentario->delete();
-        return redirect()->route('comentarios.index')->with('success', 'comenatrio eliminado correctamente');
+        return redirect()->route('comentarios.index')->with('succes', 'comenatrio eliminado correctamente');
     }
 }
