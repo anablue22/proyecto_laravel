@@ -9,8 +9,8 @@ class ProductoController extends Controller
 {
     public function index()
     {
-        $productos = Producto::all(); // Obtiene todos los productos
-        return view('ecommerce.productos.index', compact('productos'));
+        $producto = Producto::all(); // Obtiene todos los productos
+        return view('ecommerce.productos.index', compact('producto'));
     }
 
     public function create()
@@ -25,23 +25,23 @@ class ProductoController extends Controller
             'descripcion' => 'required',
             'precio' => 'required|numeric',
             'stock' => 'required|integer',
-            'categoria_id' => 'required|exists:categorias,id'
+            'categoria_id' => 'required|exists:categorias_productos,id'
         ]);
 
         Producto::create($request->all()); // Guarda el nuevo producto
-        return redirect()->route('productos.index')->with('Con éxito', 'Producto creado correctamente.');
+        return redirect()->route('productos.index')->with('success', 'Producto creado correctamente.');
     }
 
     public function show($id)
     {
         $producto = Producto::findOrFail($id);
-        return view('ecommerce.productos.show', compact('productos'));
+        return view('ecommerce.productos.show', compact('producto'));
     }
 
     public function edit($id)
     {
         $producto = Producto::findOrFail($id);
-        return view('ecommerce.productos.edit', compact('productos'));
+        return view('ecommerce.productos.edit', compact('producto'));
     }
 
     public function update(Request $request, $id)
@@ -51,7 +51,7 @@ class ProductoController extends Controller
             'descripcion' => 'required',
             'precio' => 'required|numeric',
             'stock' => 'required|integer',
-            'categoria_id' => 'required|exists:categorias,id'
+            'categoria_id' => 'required|exists:categorias_productos,id'
         ]);
 
         $producto = Producto::findOrFail($id);

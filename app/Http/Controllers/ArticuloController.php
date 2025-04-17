@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Controllers;
 use App\Models\Articulo;
 
 class ArticuloController extends Controller
@@ -14,7 +13,7 @@ class ArticuloController extends Controller
     public function index()
     {   
         $articulo =Articulo::all();
-        return view('ecommerce.articulos.index', compact('articulos'));
+        return view('blog.articulos.index', compact('articulo'));
     }
 
     /**
@@ -22,7 +21,7 @@ class ArticuloController extends Controller
      */
     public function create()
     {
-        return view('ecommerce.articulos.create');
+        return view('blog.articulos.create');
     }
 
     /**
@@ -44,7 +43,7 @@ class ArticuloController extends Controller
     public function show(string $id) //detalles de un solo artículo de productos//
     {
         $articulo = Articulo::findOrFail($id);
-        return view('ecommerce.articulos.show', compact('articulo'));
+        return view('blog.articulos.show', compact('articulo'));
     }
 
     /**
@@ -53,7 +52,7 @@ class ArticuloController extends Controller
     public function edit(string $id)
     {
         $articulo = Articulo::findOrFail($id);
-        return view('ecommerce.articulos.edit', compact('articulo'));
+        return view('blog.articulos.edit', compact('articulo'));
     }
 
     /**

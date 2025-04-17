@@ -13,8 +13,8 @@ class CategoriaBlogController extends Controller
      */
     public function index()
     {
-        $categorias = CategoriaBlog::all();
-        return view('ecommerce.categorias.index', compact('categorias'));
+        $categoria = CategoriaBlog::all();
+        return view('blog.articulos.categorias.index', compact('categoria'));
     }
 
     /**
@@ -22,7 +22,7 @@ class CategoriaBlogController extends Controller
      */
     public function create()
     {
-        return view('ecommerce.categorias.create');
+        return view('blog.articulos.categorias.create');
     }
 
     /**
@@ -44,7 +44,7 @@ class CategoriaBlogController extends Controller
     public function show(string $id) //detalles de una sola categoría de productos//
     {
         $categoria = CategoriaBlog::findOrFail($id);
-        return view('ecommerce.categorias.show', compact('categoria'));
+        return view('blog.articulos.categorias.show', compact('categoria'));
     }
 
     /**
@@ -53,7 +53,7 @@ class CategoriaBlogController extends Controller
     public function edit(string $id)
     {
         $categoria = CategoriaBlog::findOrFail($id);
-        return view('ecommerce.categorias.edit', compact('categoria'));
+        return view('blog.articulos.categorias.edit', compact('categoria'));
     }
 
     /**

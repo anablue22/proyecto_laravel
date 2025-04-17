@@ -14,7 +14,7 @@ class ComentarioController extends Controller
     public function index()
     {
         $comentario = Comentario::all();
-        return view('ecommerce.comentarios.index', compact('comentario'));
+        return view('blog.articulos.comentarios.index', compact('comentario'));
     }
 
     /**
@@ -22,7 +22,7 @@ class ComentarioController extends Controller
      */
     public function create()
     {
-        return view('ecommerce.comentarios.create');
+        return view('blog.articulos.comentarios.create');
     }
 
     /**
@@ -44,7 +44,7 @@ class ComentarioController extends Controller
     public function show(string $id)//detalles de cada comentario
     {
         $comentario = Comentario::findOrFail($id);
-        return view('ecommerce.comentarios.show', compact('comentario'));
+        return view('blog.articulos.comentarios.show', compact('comentario'));
     }
 
     /**
@@ -53,7 +53,7 @@ class ComentarioController extends Controller
     public function edit(string $id)
     {
         $comentario = Comentario::findOrFail($id);
-        return view('ecommerce.comentarios.edit', compact('comentario'));
+        return view('blog.articulos.comentarios.edit', compact('comentario'));
     }
 
     /**
@@ -62,13 +62,13 @@ class ComentarioController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'contenido' => 'required|unique:comentarios,contenido' . $id
+            'contenido' => 'required|unique:comentarios,contenido,' . $id
         ]);
 
         $comentario = Comentario::findOrFail($id);
         $comentario->update($request->all());
 
-        return redirect()->eoute('comentario.index')->with('success', 'comentario actualizao correctamente');
+        return redirect()->route('comentarios.index')->with('success', 'comentario actualizao correctamente');
     }
 
     /**
