@@ -22,8 +22,8 @@ class CategoriaBlogRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nombre' => 'required',
-            'descripcion' => 'required|max:255'
+            'nombre' => 'required|string|max:100',
+            'descripcion' => 'nullable|string|max:255'
         ];
     }
 

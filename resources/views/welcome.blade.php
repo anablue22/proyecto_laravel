@@ -1,9 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Bienvenido</title>
-</head>
-<body>
-    <h1>¡Hola, este es mi proyecto Laravel! </h1>
-</body>
-</html>
+@extends('layouts.app')
+
+@section('title', 'Inicio')
+
+@section('css')
+<link rel="stylesheet" href="style.css">
+
+@section('content')
+    <h1>Inicio</h1>
+@endsection

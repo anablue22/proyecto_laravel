@@ -15,9 +15,20 @@ Route::get('/', function () {
 // Ruta al índice de artículos del blog
 Route::get('/blog/articulos', [ArticuloController::class, 'index']);
 
-//Categorias
-Route::get('/blog/categorias-nueva-categoria', [CategoriaBlogController::class, 'create'])->name('categoria.create');
-Route::post('/blog/categorias-nueva-categoria-store', [CategoriaBlogController::class, 'store'])->name('categoria.store');  
+            //CATEGORIAS DE BLOGS
+//muestra la vista del formulario
+Route::get('/blog/categorias-blogs-nueva-categoria', [CategoriaBlogController::class, 'create'])->name('categorias.blogs.create');
+//maneja la logica para la creacion del registro
+Route::post('/blog/categorias-blogs-nueva-categoria-store', [CategoriaBlogController::class, 'store'])->name('categorias.blogs.store'); 
+//muestra todos los registros
+Route::get('/blog/categorias-blogs', [CategoriaBlogController::class, 'index'])->name('categorias.blogs.index');
+//muestra el formulario de edicion
+Route::get('/blog/categorias-blogs-editar-{id}', [CategoriaBlogController::class, 'edit'])->name('categorias.blogs.edit');
+//maneja la logica para la actualizacion
+Route::put('/blog/categorias-blogs-editar-{id}-cargando', [CategoriaBlogController::class, 'update'])->name('categorias.blogs.update');
+//elimina el registro
+Route::delete('/blog/categorias-blogs-{id}-eliminar', [CategoriaBlogController::class, 'destroy'])->name('categorias.blogs.destroy');
+
 
 // Ruta al formulario para crear un comentario
 Route::get('/blog/articulos/comentarios/create', [ComentarioController::class, 'create']);

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategoriaBlogRequest;
 use Illuminate\Http\Controllers;
-use Illuminate\Http\Request;
 use App\Models\CategoriaBlog;
 
 class CategoriaBlogController extends Controller
@@ -13,8 +13,9 @@ class CategoriaBlogController extends Controller
      */
     public function index()
     {
-        $categoria = CategoriaBlog::all();
-        return view('blog.articulos.categorias.index', compact('categoria'));
+        $categorias = CategoriaBlog::all();
+        
+        return view('blog.categorias_blogs.index', compact('categorias'));
     }
 
     /**
@@ -22,20 +23,18 @@ class CategoriaBlogController extends Controller
      */
     public function create()
     {
-        return view('blog.articulos.categorias.create');
+        return view('blog.categorias_blogs.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CategoriaBlogRequest $request)
     {
-        $request->validate([
-            'nombre' => 'required|unique:categorias,nombre'
-        ]);
 
         CategoriaBlog::create($request->all());
-        return redirect()->route('categorias.index')->width('success', 'categoría creada correctamente');
+
+        return redirect()->route('categorias.blogs.create')->with('success', 'categoría creada correctamente');
     }
 
     /**
@@ -50,34 +49,32 @@ class CategoriaBlogController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
         $categoria = CategoriaBlog::findOrFail($id);
-        return view('blog.articulos.categorias.edit', compact('categoria'));
+       
+        return view('blog.categorias_blogs.edit', compact('categoria'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(CategoriaBlogRequest $request, $id)
     {
-        $request->validate([
-            'nombre' => 'required|unique:categorias,nombre,' . $id
-        ]);
 
         $categoria = CategoriaBlog::findOrFail($id);
         $categoria->update($request->all());
 
-        return redirect()->route('categorias.index')->with('success', 'categoria actualizada correctamente');
+        return redirect()->route('categorias.blogs.index')->with('success', 'categoria actualizada correctamente');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
         $categoria = CategoriaBlog::findOrfail($id);
         $categoria->delete();
-        return redirect()->route('categorias.index')->with('success', 'categoría eliminada correctamente');
+        return redirect()->route('categorias.blogs.index')->with('success', 'categoría eliminada correctamente');
     }
 }

@@ -1,10 +1,15 @@
+@extends('layouts.app')
+@section('title', 'Agregar nueva categorias blogs')
+
+@section('content')
 <div>
-    @if (session('mensaje'))
-        <p>{{session('mensaje')}}</p>
+    @if (session('success'))
+        <p>{{session('success')}}</p>
     @endif
 </div>
 <div>
-    <form action="{{ route('categoria.store')}}" method="post">
+<h1>Agregar nueva categoria de blog</h1>
+    <form action="{{ route('categorias.blogs.store')}}" method="POST">
     @csrf
         <label for="nombre">Ingrese el nombre de la categoría</label>
         <input type="text" name="nombre">
@@ -13,3 +18,4 @@
         <input type="submit" value="Enviar datos">
     </form>
 </div>
+@endsection
