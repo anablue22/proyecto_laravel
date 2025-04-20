@@ -11,12 +11,12 @@ class Producto extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nombre', 'descripcion', 'precio', 'stock', 'categoria_id', 'imagen'];
+    protected $fillable = ['nombre', 'descripcion', 'precio', 'stock', 'categoria_id', 'url_imagen'];
 
-    // Relación con categoría
+    // Relación con categoría (corregido para usar el modelo correcto)
     public function categoria()
     {
-        return $this->belongsTo(Categoria::class);
+        return $this->belongsTo(CategoriaProducto::class, 'categoria_id');
     }
 
     // Método para verificar stock bajo

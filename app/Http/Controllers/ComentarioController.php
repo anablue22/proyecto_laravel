@@ -13,8 +13,8 @@ class ComentarioController extends Controller
      */
     public function index()
     {
-        $comentario = Comentario::all();
-        return view('blog.articulos.comentarios.index', compact('comentario'));
+        $comentarios = Comentario::all();
+        return view('blog.articulos.comentarios.index', compact('comentarios'));
     }
 
     /**

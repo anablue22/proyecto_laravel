@@ -9,8 +9,8 @@ class ProductoController extends Controller
 {
     public function index()
     {
-        $producto = Producto::all(); // Obtiene todos los productos
-        return view('ecommerce.productos.index', compact('producto'));
+        $productos = Producto::all(); // Obtiene todos los productos
+        return view('ecommerce.productos.index', compact('productos'));
     }
 
     public function create()
@@ -25,7 +25,8 @@ class ProductoController extends Controller
             'descripcion' => 'required',
             'precio' => 'required|numeric',
             'stock' => 'required|integer',
-            'categoria_id' => 'required|exists:categorias_productos,id'
+            'categoria_id' => 'required|exists:categorias_productos,id',
+            'url_imagen' => 'required|string'
         ]);
 
         Producto::create($request->all()); // Guarda el nuevo producto
@@ -34,14 +35,14 @@ class ProductoController extends Controller
 
     public function show($id)
     {
-        $producto = Producto::findOrFail($id);
-        return view('ecommerce.productos.show', compact('producto'));
+        $productos = Producto::findOrFail($id);
+        return view('ecommerce.productos.show', compact('productos'));
     }
 
     public function edit($id)
     {
-        $producto = Producto::findOrFail($id);
-        return view('ecommerce.productos.edit', compact('producto'));
+        $productos = Producto::findOrFail($id);
+        return view('ecommerce.productos.edit', compact('productos'));
     }
 
     public function update(Request $request, $id)
@@ -51,7 +52,8 @@ class ProductoController extends Controller
             'descripcion' => 'required',
             'precio' => 'required|numeric',
             'stock' => 'required|integer',
-            'categoria_id' => 'required|exists:categorias_productos,id'
+            'categoria_id' => 'required|exists:categorias_productos,id',
+            'url_imagen' => 'required|string'
         ]);
 
         $producto = Producto::findOrFail($id);
@@ -64,6 +66,6 @@ class ProductoController extends Controller
     {
         $producto = Producto::findOrFail($id);
         $producto->delete();
-        return redirect()->route('productos.index')->with('success', 'Producto eliminado correctamente.');
+        return redirect()->route('productos.blog.index')->with('success', 'Producto eliminado correctamente.');
     }
 }
