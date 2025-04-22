@@ -18,8 +18,8 @@ class ProductoRequest extends FormRequest
             'descripcion' => 'required',
             'precio' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
-            'categoria_id' => 'required|exists:categorias,id',
-            'imagen' => 'nullable|image|max:2048',
+            'categoria_id' => 'required|exists:categorias_productos,id',
+            'url_imagen' => 'nullable|image|max:2048',
         ];
     }
 }

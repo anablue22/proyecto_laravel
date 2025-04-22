@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Producto;
+use App\Models\CategoriaProducto; 
 
 class ProductoController extends Controller
 {
@@ -15,12 +16,13 @@ class ProductoController extends Controller
 
     public function create()
     {
-        return view('ecommerce.productos.create'); // Muestra el formulario de creación
+        $categorias = CategoriaProducto::all();
+        return view('ecommerce.productos.create', compact('categorias')); // Muestra el formulario de creación
     }
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'nombre' => 'required',
             'descripcion' => 'required',
             'precio' => 'required|numeric',
@@ -28,21 +30,21 @@ class ProductoController extends Controller
             'categoria_id' => 'required|exists:categorias_productos,id',
             'url_imagen' => 'required|string'
         ]);
-
-        Producto::create($request->all()); // Guarda el nuevo producto
+    
+        Producto::create($validated);
         return redirect()->route('productos.index')->with('success', 'Producto creado correctamente.');
     }
 
     public function show($id)
     {
-        $productos = Producto::findOrFail($id);
-        return view('ecommerce.productos.show', compact('productos'));
+        $producto = Producto::findOrFail($id);
+        return view('ecommerce.productos.show', compact('producto'));
     }
 
     public function edit($id)
     {
-        $productos = Producto::findOrFail($id);
-        return view('ecommerce.productos.edit', compact('productos'));
+        $producto = Producto::findOrFail($id);
+        return view('ecommerce.productos.edit', compact('producto'));
     }
 
     public function update(Request $request, $id)
@@ -66,6 +68,6 @@ class ProductoController extends Controller
     {
         $producto = Producto::findOrFail($id);
         $producto->delete();
-        return redirect()->route('productos.blog.index')->with('success', 'Producto eliminado correctamente.');
+        return redirect()->route('productos.index')->with('success', 'Producto eliminado correctamente.');
     }
 }
