@@ -34,6 +34,7 @@ Route::put('/blog/categorias-blogs-editar-{id}-cargando', [CategoriaBlogControll
 //elimina el registro
 Route::delete('/blog/categorias-blogs-{id}-eliminar', [CategoriaBlogController::class, 'destroy'])->name('categorias.blogs.destroy');
 
+
             //COMENTARIOS
 // Mostrar todos los comentarios
 Route::get('/blog/articulos/comentarios', [ComentarioController::class, 'index'])->name('comentarios.blogs.index');
@@ -52,22 +53,23 @@ Route::put('/blog/articulos/comentarios/{comentario}', [ComentarioController::cl
 
                 // PRODUCTOS 
 // Mostrar todos los productos
-Route::get('/productos', [ProductoController::class, 'index'])->name('productos.blogs.index');
+Route::get('/productos', [ProductoController::class, 'index'])->name('productos.index');
 
 // Mostrar el formulario de crear un producto
-Route::get('/productos/create', [ProductoController::class, 'create'])->name('productos.blogs.create');
+Route::get('/productos/create', [ProductoController::class, 'create'])->name('productos.create');
 
 // Guardar el nuevo producto
-Route::post('/productos', [ProductoController::class, 'store'])->name('productos.store');
+Route::post('/productos/store', [ProductoController::class, 'store'])->name('productos.store');
 
 // Mostrar un producto específico
-Route::get('/productos/{producto}', [ProductoController::class, 'show'])->name('productos.blogs,show');
+Route::get('/productos/{producto}', [ProductoController::class, 'show'])->name('productos.show');
 
 // Mostrar el formulario de editar un producto
-Route::get('/productos/{producto}/edit', [ProductoController::class, 'edit'])->name('productos.blogs.edit');
+Route::get('/productos/{producto}/edit', [ProductoController::class, 'edit'])->name('productos.edit');
 
 // Actualizar el producto
-Route::put('/productos/{producto}', [ProductoController::class, 'update'])->name('productos.blogs.update');
+Route::put('/productos/{producto}', [ProductoController::class, 'update'])->name('productos.update');
 
 // Eliminar un producto
-Route::delete('/productos/{producto}', [ProductoController::class, 'destroy'])->name('productos.blogs.destroy');
+Route::delete('/productos/{producto}', [ProductoController::class, 'destroy'])->name('productos.destroy');
+ 

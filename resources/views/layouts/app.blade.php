@@ -46,9 +46,6 @@
                 
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="btn btn-outline-light" href="{{ route('categorias.blogs.create')}}">
-                            <i class="fas fa-plus me-1"></i> Nueva categoría
-                        </a>
                     </li>
                 </ul>
             </div>

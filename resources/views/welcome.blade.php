@@ -6,5 +6,5 @@
 <link rel="stylesheet" href="style.css">
 
 @section('content')
-    <h1>Inicio</h1>
+    <h1>¡Bienvenido a mi EcommerceBlog!</h1>
 @endsection
