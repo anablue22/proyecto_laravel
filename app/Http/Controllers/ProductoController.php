@@ -28,19 +28,25 @@ class ProductoController extends Controller
             'precio' => 'required|numeric',
             'stock' => 'required|integer',
             'categoria_id' => 'required|exists:categorias_productos,id',
-            'url_imagen' => 'required|image' // corregido
+            'imagen' => 'required|image' 
         ]);
     
-        // Guardar la imagen y obtener la ruta
-        $rutaImagen = $request->file('url_imagen')->store('productos', 'public');
+         // Guardar la imagen y obtener la ruta
+    $rutaImagen = $request->file('imagen')->store('productos', 'public');
     
-        // Agregar la ruta de la imagen al array validado
-        $validated['url_imagen'] = $rutaImagen;
+    // Crear el nuevo producto con los datos validados
+    $producto = new Producto();
+    $producto->nombre = $validated['nombre'];
+    $producto->descripcion = $validated['descripcion'];
+    $producto->precio = $validated['precio'];
+    $producto->stock = $validated['stock'];
+    $producto->categoria_id = $validated['categoria_id'];
+    $producto->url_imagen = $rutaImagen; // Guardar la ruta de la imagen
+    $producto->save();
     
-        Producto::create($validated);
-    
-        return redirect()->route('productos.index')->with('success', 'Producto creado correctamente.');
-    }
+    return redirect()->route('productos.index')->with('success', 'Producto creado correctamente.');
+}
+        
     
 
     public function show(Producto $producto)
