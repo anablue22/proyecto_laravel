@@ -65,7 +65,7 @@
                         <div class="mb-3">
                             <label for="imagen" class="form-label">Imagen del producto:</label>
                             <input type="file" class="form-control @error('imagen') is-invalid @enderror" id="imagen" name="imagen">
-                            <div class="form-text">Sube una imagen para tu producto (opcional).</div>
+                            <div class="form-text">Sube una imagen para tu producto.</div>
                             @error('imagen')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror

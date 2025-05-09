@@ -23,7 +23,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('productos', function (Blueprint $table) {
-            $table->string('url_imagen')->after('categoria_id');
+            $table->string('url_imagen')->nullable()->after('categoria_id');
             $table->dropColumn('imagen');
         });
     }

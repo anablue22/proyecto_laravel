@@ -51,6 +51,7 @@ class ProductoController extends Controller
 
     public function show(Producto $producto)
     {
+        $categorias = CategoriaProducto::all();
         return view('ecommerce.productos.show', compact('producto'));
     }
 
@@ -60,27 +61,34 @@ class ProductoController extends Controller
     }
 
     public function update(Request $request, $id)
-    {
-        $request->validate([
-            'nombre' => 'required|string|max:50',
-            'descripcion' => 'required|string|max:150',
-            'precio' => 'required|numeric',
-            'stock' => 'required|integer',
-            'categoria_id' => 'required|exists:categorias_productos,id',
-            'imagen' => 'required|image|max:2048', // max 2MB
-        ]);
+{
+    $request->validate([
+        'nombre' => 'required|string|max:50',
+        'descripcion' => 'required|string|max:150',
+        'precio' => 'required|numeric',
+        'stock' => 'required|integer',
+        'categoria_id' => 'required|exists:categorias_productos,id',
+        'imagen' => 'nullable|image|max:2048', // imagen ahora es opcional
+    ]);
 
-        $producto = new Producto();
-        $producto->nombre = $request->nombre;
-        $producto->descripcion = $request->descripcion;
-        $producto->precio = $request->precio;
-        $producto->stock = $request->stock;
-        $producto->categoria_id = $request->categoria_id;
-        $producto->imagen = file_get_contents($request->file('imagen')->getRealPath()); // guardar en binario
-        $producto->save(); 
-        
-        return redirect()->route('productos.index')->with('success', 'Producto actualizado correctamente.');
+    $producto = Producto::findOrFail($id);
+    $producto->nombre = $request->nombre;
+    $producto->descripcion = $request->descripcion;
+    $producto->precio = $request->precio;
+    $producto->stock = $request->stock;
+    $producto->categoria_id = $request->categoria_id;
+
+    // Solo actualiza la imagen si se sube una nueva
+    if ($request->hasFile('imagen')) {
+        $rutaImagen = $request->file('imagen')->store('productos', 'public');
+        $producto->url_imagen = $rutaImagen;
     }
+
+    $producto->save(); 
+    
+    return redirect()->route('productos.index')->with('success', 'Producto actualizado correctamente.');
+}
+
 
     public function destroy($id)
     {
